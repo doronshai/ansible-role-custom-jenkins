@@ -36,5 +36,7 @@
     name: jenkins
     state: restarted
   notify: "service jenkins restart"
+  become: true
+  become_user: root   
 
 - meta: flush_handlers
