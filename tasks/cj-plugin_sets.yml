@@ -23,18 +23,18 @@
     cj_plugins: "{{ cj_plugins + cj_dsl_plugins }}"
   when: (cj_setup_dsl_plugins is defined) and (cj_setup_dsl_plugins | bool)
 
+- name: "merge plugin lists -> base + goodies"
+  set_fact:
+    cj_plugins: "{{ cj_plugins }} + {{ cj_goodie_plugins }}"
+  when: (cj_goodies is defined) and (cj_goodies | bool)
+
 - block:
   - name: "Setting fact for cj_plugins -> base"
     set_fact:
       cj_plugins: "{{ cj_base_plugins }}"
     when: (cj_base is defined) and (cj_base | bool)
 
-  - name: "merge plugin lists -> base + goodies"
-    set_fact:
-      cj_plugins: "{{ cj_plugins }} + {{ cj_goodie_plugins }}"
-    when: (cj_goodies is defined) and (cj_goodies | bool)
-
-  - name: "merge plugin lists -> github"
+  - name: "merge plugin lists -> base + github"
     set_fact:
       cj_plugins: "{{ cj_plugins }} + {{ cj_github_plugins }}"
     when: (cj_github is defined) and (cj_github | bool)

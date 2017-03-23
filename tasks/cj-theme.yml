@@ -8,6 +8,7 @@
     mode: 0755
     validate_certs: false
   register: theme_css
+  when: cj_theme_custom == true
 
 - name: "Cache the themes css and js in Jenkins userContent"
   get_url:
