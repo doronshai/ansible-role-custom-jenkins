@@ -89,9 +89,5 @@
 
     when: ((cj_seed_demo is defined) and (cj_seed_demo | bool))
 
-  - name: "12.3 :: Demo seed job(s) - if requested login, delete, import & trigger 1st build"
-    include: "cj-import-jobs.yml"
-    when: ((cj_hello2docker_demo is defined) and (cj_hello2docker_demo | bool))
-
   become: true
   become_user: "{{ cj_runas_user }}"

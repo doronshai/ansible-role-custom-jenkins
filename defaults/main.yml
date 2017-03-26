@@ -176,6 +176,7 @@ cj_theme_plugins:
 cj_goodie_plugins:
   - { name: "greenballs" }
   - { name: "jobConfigHistory" }
+  - { name: "throttle-concurrents" }
 
 cj_nodes_credentials:
   - { name: "solaris-user", id: "8bf43f0b-5cef-46b7-8d64-d1bd0a77e11a9", username: "nodeuser", password: "test", description: "use this for solaris slaves" }
