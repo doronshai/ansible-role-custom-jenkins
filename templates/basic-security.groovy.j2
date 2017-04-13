@@ -37,7 +37,7 @@ def instance = Jenkins.getInstance()
 
   {% if ldap.enabled == true %}  
   String server = "{{ ldap.host }}"
-  String rootDN = "{{ ldap.rootdn }}"
+  String rootDN = "{{ ldap.rootDN }}"
   String userSearchBase = ''
   String userSearch = "{{ ldap.userSearch }}"
   String groupSearchBase = ''

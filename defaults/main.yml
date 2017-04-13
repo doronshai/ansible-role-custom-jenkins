@@ -58,12 +58,12 @@ cj_local_regular_users:
   - { username: user1, password: user1 }
   - { username: user2, password: user2 }
 
-#ldap
+#LDAP
 ldap:
   enabled: false
 #   host: "place the IP or Server Address"
-#   rootdn: "place the root dn"
-#   userSearch: "usuaklly use uid={0}"
+#   rootDN: "place the root DN"
+#   userSearch: "usually use uid={0}"
 #   managerDN: "DN for user that can read"
 #   managerPasswordSecret: "password of this user"
 
