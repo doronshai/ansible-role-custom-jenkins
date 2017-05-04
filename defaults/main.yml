@@ -64,6 +64,7 @@ ldap:
 #   host: "place the IP or Server Address"
 #   rootDN: "place the root DN"
 #   userSearch: "usually use uid={0}"
+#   groupSearchBase: "usually use cn={0}"
 #   managerDN: "DN for user that can read"
 #   managerPasswordSecret: "password of this user"
 
