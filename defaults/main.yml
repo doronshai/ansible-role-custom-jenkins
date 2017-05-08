@@ -59,14 +59,20 @@ cj_local_regular_users:
   - { username: user2, password: user2 }
 
 #LDAP
-ldap:
-  enabled: false
+#ldap:
+#  enabled: false
 #   host: "place the IP or Server Address"
 #   rootDN: "place the root DN"
 #   userSearch: "usually use uid={0}"
-#   groupSearchBase: "usually use cn={0}"
+#   groupSearchBase: "usually use ou=Groups"
+#   groupSearchfilter: "usually use cn={0}"
+#   membershipStrategyAttribute: "ou"
 #   managerDN: "DN for user that can read"
 #   managerPasswordSecret: "password of this user"
+#   cache: ""
+#   displayNameAttributeName: "uid" 
+#   isDisableRolePrefixing: true
+
 
 #jenkins-cli
 cj_cli_jar_location: "{{ cj_cache_dir }}/war/WEB-INF/jenkins-cli.jar"
@@ -104,6 +110,7 @@ cj_workflow: false
 cj_seed_demo: true
 
 cj_wizard_plugins:
+  - { name: "role-strategy"}
   - { name: "jenkins-multijob-plugin" }
   - { name: "bouncycastle-api", version: "2.16.0", enabled: "true", extention: "hpi" }
   - { name: "cloudbees-folder", version: "5.15", enabled: "true", extention: "hpi" }
