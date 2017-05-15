@@ -41,7 +41,7 @@ instance.setAuthorizationStrategy(strategy)
 
 {% if activedirectory.enabled == true %}  
 
-    def instance = Jenkins.getInstance();
+    instance = Jenkins.getInstance();
     def ActiveDirectoryDomain adDomain = new ActiveDirectoryDomain("Example_Domain_Name_2", "Example_Domain_Controller_2");
     def domains = new ArrayList<ActiveDirectoryDomain>();
     domains.add(adDomain);
