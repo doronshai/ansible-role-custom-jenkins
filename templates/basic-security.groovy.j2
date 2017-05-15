@@ -56,10 +56,11 @@ instance.setAuthorizationStrategy(strategy)
     "", //                              server
     GroupLookupStrategy.RECURSIVE, //   groupLookupStrategy
     false, //                           removeIrrelevantGroups
-    true,  //                           customDomain
+    false,  //                           customDomain
     null,  //                           cache
-    true)  //                           startTls
-    
+    true,  //                           startTls
+    "TRUST_ALL_CERTIFICATES")  //       tlsConfiguration
+
     println(securityRealm.domains)
 
     instance.setSecurityRealm(securityRealm) 
