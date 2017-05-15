@@ -34,25 +34,19 @@
     include: "cj-proxy.yml"
     when: (cj_set_proxy is defined) and (cj_set_proxy | bool)
 
-  - name: "-06 :: Remove proxy config - if cj_remove_proxy is set"
+  - name: "06.01 :: Remove proxy config - if cj_remove_proxy is set"
     file:
       dest: "{{ cj_home }}/proxy.xml"
       state: absent
     when: (cj_remove_proxy is defined) and (cj_remove_proxy | bool)
 
-  - name: "08 :: Service start & enable"
+  - name: "06.02 :: Service start & enable"
     include: "cj-restart-jenkins.yml"
 
   become: true
   become_user: root
 
 - block:
-
-  - name: "04 :: Validate {{ cj_runas_user d('jenkins')}} has a valid ssh key"
-    include: "cj-ssh_key.yml"
-
-  - name: "07 :: Configure Jenkins Authentication & Authorization [known to do nothing on 1st run]"
-    include: "cj-init_config.yml"
 
   - name: "Disable security"
     include: "cj-disable-security.yml"
@@ -62,6 +56,12 @@
 
   - name: "10 :: install recommanded plugins"
     include: "cj-plugins-online-install.yml"
+    
+  - name: "04 :: Validate {{ cj_runas_user d('jenkins')}} has a valid ssh key"
+    include: "cj-ssh_key.yml"
+
+  - name: "07 :: Configure Jenkins Authentication & Authorization [known to do nothing on 1st run]"
+    include: "cj-init_config.yml"
 
   - name: "08 :: Add ssh public key of {{ cj_runas_user }} user to user {{ cj_local_admin_users[0].username }} properties in Jenkins"
     include: "cj-add-public-key-to-admin-user.yml"
