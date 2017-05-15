@@ -7,8 +7,8 @@
     group: "{{ cj_runas_group }}"
     mode: 0755
     validate_certs: false
-    become: true
-    become_user: root
+  become: true
+  become_user: root
   register: theme_css
   when: cj_theme_custom == true
 
@@ -20,8 +20,8 @@
     group: "{{ cj_runas_group }}"
     mode: 0755
     validate_certs: false
-    become: true
-    become_user: root
+  become: true
+  become_user: root
   register: theme_js
 
 - name: "update Jenkins theme setting"
