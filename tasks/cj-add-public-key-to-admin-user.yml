@@ -3,6 +3,8 @@
   service:
     name: jenkins
     state: stopped
+  become: true
+  become_user: root   
 
 - name: "Python script for add public-key of user jenkins to the first 'admin' user"
   template:

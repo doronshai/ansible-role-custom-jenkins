@@ -58,13 +58,29 @@ cj_local_regular_users:
   - { username: user1, password: user1 }
   - { username: user2, password: user2 }
 
+#LDAP
+#ldap:
+#  enabled: false
+#   host: "place the IP or Server Address"
+#   rootDN: "place the root DN"
+#   userSearch: "usually use uid={0}"
+#   groupSearchBase: "usually use ou=Groups"
+#   groupSearchfilter: "usually use cn={0}"
+#   membershipStrategyAttribute: "ou"
+#   managerDN: "DN for user that can read"
+#   managerPasswordSecret: "password of this user"
+#   cache: ""
+#   displayNameAttributeName: "uid" 
+#   isDisableRolePrefixing: true
+
+
 #jenkins-cli
 cj_cli_jar_location: "{{ cj_cache_dir }}/war/WEB-INF/jenkins-cli.jar"
 cj_cli_hostname: 'localhost'
 
-
 # jenkins material theme
 # could be: red, pink, purple, deep-purple see full list @ -> http://afonsof.com/jenkins-material-theme/
+cj_theme_custom: true
 cj_theme_color: amber
 cj_theme_conf_file: org.codefirst.SimpleThemeDecorator.xml
 cj_theme_css_url: https://jenkins-contrib-themes.github.io/jenkins-material-theme/dist/material-{{ cj_theme_color }}.css
@@ -94,6 +110,7 @@ cj_workflow: false
 cj_seed_demo: true
 
 cj_wizard_plugins:
+  - { name: "role-strategy"}
   - { name: "jenkins-multijob-plugin" }
   - { name: "bouncycastle-api", version: "2.16.0", enabled: "true", extention: "hpi" }
   - { name: "cloudbees-folder", version: "5.15", enabled: "true", extention: "hpi" }
@@ -174,6 +191,8 @@ cj_theme_plugins:
 
 cj_goodie_plugins:
   - { name: "greenballs" }
+  - { name: "jobConfigHistory" }
+  - { name: "throttle-concurrents" }
 
 cj_nodes_credentials:
   - { name: "solaris-user", id: "8bf43f0b-5cef-46b7-8d64-d1bd0a77e11a9", username: "nodeuser", password: "test", description: "use this for solaris slaves" }

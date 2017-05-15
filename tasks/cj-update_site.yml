@@ -19,6 +19,8 @@
     mode: 0755
     validate_certs: false
   register: update_site
+  become: true
+  become_user: root
 
 - name: "remove blank lines in default.json"
   lineinfile:

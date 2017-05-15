@@ -3,5 +3,8 @@
   service:
     name: jenkins
     state: restarted
+  
+  become: true
+  become_user: root
 
 - include: "cj-wait-jenkins-is-up.yml"

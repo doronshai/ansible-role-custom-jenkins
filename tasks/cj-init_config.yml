@@ -11,14 +11,14 @@
     group:  "{{ cj_runas_group }}"
     mode: 0755
 
-- name: "Generate groovy script for jenkins bootstrap execution"
-  template:
-    src: "{{ item }}.j2"
-    dest: "{{ cj_init_dir }}/{{ item }}"
-    owner:  "{{ cj_runas_user }}"
-    group:  "{{ cj_runas_group }}"
-  notify: "service jenkins restart"
-  with_items:
-    - basic-security.groovy
+# - name: "Generate groovy script for jenkins bootstrap execution"
+#   template:
+#     src: "{{ item }}.j2"
+#     dest: "{{ cj_init_dir }}/{{ item }}"
+#     owner:  "{{ cj_runas_user }}"
+#     group:  "{{ cj_runas_group }}"
+#   notify: "service jenkins restart"
+#   with_items:
+#     - basic-security.groovy
 
 - include: "cj-restart-jenkins.yml"
