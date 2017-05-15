@@ -7,6 +7,7 @@ import jenkins.security.plugins.ldap.LDAPGroupMembershipStrategy
 import jenkins.model.IdStrategy
 import org.jenkinsci.plugins.*
 import hudson.model.AbstractDescribableImpl
+import hudson.plugins.active_directory.* 
 
 def instance = Jenkins.getInstance()
 
@@ -55,10 +56,10 @@ instance.setAuthorizationStrategy(strategy)
     "", //                              server
     GroupLookupStrategy.RECURSIVE, //   groupLookupStrategy
     false, //                           removeIrrelevantGroups
-    false,  //                           customDomain
+    false,  //                          customDomain
     null,  //                           cache
     true,  //                           startTls
-    "TRUST_ALL_CERTIFICATES")  //       tlsConfiguration
+    null)  //                           tlsConfiguration
 
     println(securityRealm.domains)
 
