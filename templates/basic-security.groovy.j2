@@ -9,6 +9,8 @@ import org.jenkinsci.plugins.*
 import hudson.model.AbstractDescribableImpl
 import hudson.plugins.active_directory.* 
 
+def instance = Jenkins.getInstance()
+
 // disable signup
 def hudsonRealm = new HudsonPrivateSecurityRealm(false)
 {% for account in cj_local_admin_users %}
