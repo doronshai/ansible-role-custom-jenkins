@@ -43,7 +43,7 @@ instance.setAuthorizationStrategy(strategy)
 
     instance = Jenkins.getInstance();
    
-    def ActiveDirectoryDomain adDomain = new ActiveDirectoryDomain("Example_Domain_Name_2", "Example_Domain_Controller_2");
+    def ActiveDirectoryDomain adDomain = new ActiveDirectoryDomain("corp.amdocs.com");
     def domains = new ArrayList<ActiveDirectoryDomain>();
     domains.add(adDomain);
 
@@ -51,7 +51,7 @@ instance.setAuthorizationStrategy(strategy)
     "", //                              domain
     domains, //                         domains
     "", //                              site
-    "TEST-TEST", //                     bindName
+    "", //                              bindName
     "", //                              bindPassword
     "", //                              server
     GroupLookupStrategy.RECURSIVE, //   groupLookupStrategy

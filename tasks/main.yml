@@ -47,10 +47,11 @@
   become_user: root
 
 - block:
-
+  
+  # Here we will set the security to false so the installation of the plugins will be done without the need to login
   - name: "Disable security"
     include: "cj-disable-security.yml"
-
+    
   - name: "Service start & enable"
     include: "cj-restart-jenkins.yml"
 
@@ -60,6 +61,9 @@
   - name: "04 :: Validate {{ cj_runas_user d('jenkins')}} has a valid ssh key"
     include: "cj-ssh_key.yml"
 
+  # This step creates groovy-script in init.groovy.d folder and requires restart
+  # TODO: this script will have to be deleted in previous steps so in the next run we will not load this script on each restart
+  # make the disable security void
   - name: "07 :: Configure Jenkins Authentication & Authorization [known to do nothing on 1st run]"
     include: "cj-init_config.yml"
 
