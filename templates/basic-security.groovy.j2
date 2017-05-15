@@ -8,104 +8,54 @@ import jenkins.model.IdStrategy
 import org.jenkinsci.plugins.*
 import hudson.model.AbstractDescribableImpl
 
-// def instance = Jenkins.getInstance()
+// disable signup
+def hudsonRealm = new HudsonPrivateSecurityRealm(false)
+{% for account in cj_local_admin_users %}
+    hudsonRealm.createAccount('{{ account.username }}', '{{ account.password }}')
+{% endfor %}
+{% for account in cj_local_regular_users %}
+    hudsonRealm.createAccount('{{ account.username }}', '{{ account.password }}')
+{% endfor %}
+instance.setSecurityRealm(hudsonRealm)
+instance.save()
 
-// String DISABLE = true
+def strategy = new hudson.security.ProjectMatrixAuthorizationStrategy()
+{% for account in cj_local_admin_users %}
+    strategy.add(Jenkins.ADMINISTER, "{{ account.username }}")
+{% endfor %}
+    {% for account in cj_local_regular_users %}
+    //strategy.add(hudson.model.View.READ, "{{ account.username }}")
+    //strategy.add(hudson.model.Item.READ, "{{ account.username }}")
+    strategy.add(Jenkins.READ, "{{ account.username }}")
+{% endfor %}
+{% if cj_allow_anon_read is defined %}
+    strategy.add(hudson.model.View.READ, 'anonymous')
+    strategy.add(hudson.model.Item.READ, 'anonymous')
+    strategy.add(Jenkins.READ, 'anonymous')
+{% endif %}
 
-// if (!DISABLE) {
+instance.setAuthorizationStrategy(strategy)
 
-//    if (!instance.isUseSecurity()) {
-    
-        // disable signup
-        def hudsonRealm = new HudsonPrivateSecurityRealm(false)
-        {% for account in cj_local_admin_users %}
-        hudsonRealm.createAccount('{{ account.username }}', '{{ account.password }}')
-        {% endfor %}
-        {% for account in cj_local_regular_users %}
-        hudsonRealm.createAccount('{{ account.username }}', '{{ account.password }}')
-        {% endfor %}
-        instance.setSecurityRealm(hudsonRealm)
-        instance.save()
+{% if activedirectoy.enabled == true %}  
 
-        def strategy = new hudson.security.ProjectMatrixAuthorizationStrategy()
-        {% for account in cj_local_admin_users %}
-        strategy.add(Jenkins.ADMINISTER, "{{ account.username }}")
-        {% endfor %}
-        {% for account in cj_local_regular_users %}
-        //strategy.add(hudson.model.View.READ, "{{ account.username }}")
-        //strategy.add(hudson.model.Item.READ, "{{ account.username }}")
-        strategy.add(Jenkins.READ, "{{ account.username }}")
-        {% endfor %}
-        {% if cj_allow_anon_read is defined %}
-        strategy.add(hudson.model.View.READ, 'anonymous')
-        strategy.add(hudson.model.Item.READ, 'anonymous')
-        strategy.add(Jenkins.READ, 'anonymous')
-        {% endif %}
+    def instance = Jenkins.getInstance();
+    def ActiveDirectoryDomain adDomain = new ActiveDirectoryDomain("Example_Domain_Name_2", "Example_Domain_Controller_2");
+    def domains = new ArrayList<ActiveDirectoryDomain>();
+    domains.add(adDomain);
 
-        instance.setAuthorizationStrategy(strategy)
+    def securityRealm = new ActiveDirectorySecurityRealm( 
+    "", 
+    domains,
+    "", 
+    "",
+    "",  
+    "", 
+    GroupLookupStrategy.RECURSIVE,
+    false,
+    true,
+    null)
+    println(securityRealm.domains)
 
-        {% if activedirectoy.enabled == true %}  
-
-            def instance = Jenkins.getInstance();
-            def ActiveDirectoryDomain adDomain = new ActiveDirectoryDomain("Example_Domain_Name_2", "Example_Domain_Controller_2");
-            def domains = new ArrayList<ActiveDirectoryDomain>();
-            domains.add(adDomain);
-
-            def securityRealm = new ActiveDirectorySecurityRealm( 
-            "", 
-            domains,
-            "", 
-            "",
-            "",  
-            "", 
-            GroupLookupStrategy.RECURSIVE,
-            false,
-            true,
-            null)
-            println(securityRealm.domains)
-
-            instance.setSecurityRealm(securityRealm) 
-            instance.save()
-        {% endif %}
-
-//  }
-
-//     println ("------------------------------------------ 111111 -------------------------------------------")
-//     {% if ldap.enabled == true %}  
-//     String server = "{{ ldap.host }}"
-//     String rootDN = "{{ ldap.rootDN }}"
-//     String userSearchBase = ''
-//     String userSearch = "{{ ldap.userSearch }}"
-//     String groupSearchBase = "{{ ldap.groupSearchBase }}"
-//     String groupSearchfilter = "{{ ldap.groupSearchfilter }}"
-//     LDAPGroupMembershipStrategy groupMembershipStrategy = "{{ ldap.membershipStrategyAttribute }}"
-//     String managerDN = "{{ ldap.managerDN }}"
-//     Secret managerPassword = "{{ ldap.managerPasswordSecret }}"
-//     boolean inhibitInferRootDN = false
-//     boolean disableMailAddressResolver = false
-//     CacheConfiguration cache = "{{ ldap.cache }}"
-//     //String environmentProperties =  new this.EnvironmentProperty[] 
-//     //environmentProperties = ''
-//     String displayNameAttributeName = "{{ ldap.displayNameAttributeName }}"
-//     String mailAddressAttributeName = "mail"
-//     IdStrategy userIdStrategy = ""
-//     IdStrategy groupIdStrategy = ""
-
-//     println ("------------------------------------------ 222222 -------------------------------------------")
-
-//     SecurityRealm ldap_realm = new LDAPSecurityRealm(server, rootDN, userSearchBase, userSearch, groupSearchBase, groupSearchfilter, groupMembershipStrategy, managerDN, managerPassword, inhibitInferRootDN, disableMailAddressResolver, cache, environmentProperties, displayNameAttributeName,mailAddressAttributeName, userIdStrategy, groupIdStrategy)
-
-//     println ("------------------------------------------ 333333 -------------------------------------------")
-
-//     ldap_realm.isDisableRolePrefixing("{{ ldap.isDisableRolePrefixing }}")
-//     println ("------------------------------------------ 444444 -------------------------------------------")
-
-//     Jenkins.instance.setSecurityRealm(ldap_realm)
-//     Jenkins.instance.authorizationStrategy = new FullControlOnceLoggedInAuthorizationStrategy() ;
-//     Jenkins.instance.save()
-//     {% endif %}
-
-
-
-
-// }
+    instance.setSecurityRealm(securityRealm) 
+    instance.save()
+{% endif %}
