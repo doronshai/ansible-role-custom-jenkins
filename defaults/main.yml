@@ -59,8 +59,8 @@ cj_local_regular_users:
   - { username: user2, password: user2 }
 
 #LDAP
-#ldap:
-#  enabled: false
+ldap:
+  enabled: false
 #   host: "place the IP or Server Address"
 #   rootDN: "place the root DN"
 #   userSearch: "usually use uid={0}"
@@ -73,6 +73,8 @@ cj_local_regular_users:
 #   displayNameAttributeName: "uid" 
 #   isDisableRolePrefixing: true
 
+activedirectoy:
+  enabled: false
 
 #jenkins-cli
 cj_cli_jar_location: "{{ cj_cache_dir }}/war/WEB-INF/jenkins-cli.jar"
