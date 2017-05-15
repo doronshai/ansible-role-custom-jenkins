@@ -73,7 +73,7 @@ ldap:
 #   displayNameAttributeName: "uid" 
 #   isDisableRolePrefixing: true
 
-activedirectoy:
+activedirectory:
   enabled: false
 
 #jenkins-cli

@@ -39,7 +39,7 @@ def strategy = new hudson.security.ProjectMatrixAuthorizationStrategy()
 
 instance.setAuthorizationStrategy(strategy)
 
-{% if activedirectoy.enabled == true %}  
+{% if activedirectory.enabled == true %}  
 
     def instance = Jenkins.getInstance();
     def ActiveDirectoryDomain adDomain = new ActiveDirectoryDomain("Example_Domain_Name_2", "Example_Domain_Controller_2");
