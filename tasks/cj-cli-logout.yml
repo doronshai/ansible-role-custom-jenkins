@@ -1,0 +1,8 @@
+---
+- name: "Jenkins logout"
+  shell: >
+    java -jar {{ cj_cli_jar_location }} \
+    -s http://{{ cj_cli_hostname }}:{{ cj_http_port }}{{ cj_application_context | default('') }}/ \
+    -noKeyAuth logout
+  become: true
+  become_user: "{{ cj_runas_user }}"

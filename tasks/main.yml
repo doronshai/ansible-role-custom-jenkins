@@ -2,35 +2,35 @@
 # tasks file for ansible-role-custom-jenkins
 - block:
 
-  - name: "01 :: include Debain / Redhat OS vars"
+  - name: "01.00 :: include Debain / Redhat OS vars"
     include_vars: "{{ ansible_os_family }}.yml"
 
-  - name: "-01 :: in case you want to cleanup the and start over ..."
+  - name: "01.1 :: in case you want to cleanup the and start over ..."
     include: "cj-cleanup.yml"
     static: no
     when: ((cleanup is defined) and (cleanup | bool))
 
-  - name: "02.1 :: define cj_repo_url fact to {{ cj_repo_url_latest_lts }}"
+  - name: "02.10 :: define cj_repo_url fact to {{ cj_repo_url_latest_lts }}"
     set_fact:
       cj_repo_url: "{{ cj_repo_url_latest_lts }}"
     when: cj_channel == 'latest-LTS'
 
-  - name: "02.2 :: Define cj_repo_url fact to {{ cj_repo_url_gratest_n_latest }}"
+  - name: "02.20 :: Define cj_repo_url fact to {{ cj_repo_url_gratest_n_latest }}"
     set_fact:
       cj_repo_url: "{{ cj_repo_url_gratest_n_latest }}"
     when: cj_channel == 'latest'
 
-  - name: "03 :: Include Debain / Redhat OS installaion method"
+  - name: "03.00 :: Include Debain / Redhat OS installaion method"
     include: "cj-install_{{ ansible_os_family }}.yml"
 
-  - name: "05 :: Configure Jenkins via {{ cj_conf_file }}"
+  - name: "05.00 :: Configure Jenkins via {{ cj_conf_file }}"
     template:
       src: "jenkins-config-{{ ansible_os_family }}.j2"
       dest: "{{ cj_conf_file }}"
       mode: 0755
     register: config_changed
 
-  - name: "06 :: Configure Jenkins Proxy - if cj_set_proxy is set"
+  - name: "06.00 :: Configure Jenkins Proxy - if cj_set_proxy is set"
     include: "cj-proxy.yml"
     when: (cj_set_proxy is defined) and (cj_set_proxy | bool)
 
@@ -48,27 +48,40 @@
 
 - block:
   
+  - name: "07.00 :: Validate {{ cj_runas_user d('jenkins')}} has a valid ssh key"
+    include: "cj-ssh_key.yml"
+
   # Here we will set the security to false so the installation of the plugins will be done without the need to login
   - name: "Disable security"
     include: "cj-disable-security.yml"
-    
+
   - name: "Service start & enable"
     include: "cj-restart-jenkins.yml"
 
-  - name: "10 :: install recommanded plugins"
+  - name: "08.00 :: install recommanded plugins"
     include: "cj-plugins-online-install.yml"
-    
-  - name: "04 :: Validate {{ cj_runas_user d('jenkins')}} has a valid ssh key"
-    include: "cj-ssh_key.yml"
 
   # This step creates groovy-script in init.groovy.d folder and requires restart
   # TODO: this script will have to be deleted in previous steps so in the next run we will not load this script on each restart
   # make the disable security void
-  - name: "07 :: Configure Jenkins Authentication & Authorization [known to do nothing on 1st run]"
+  - name: "09.00 :: Configure Jenkins Authentication & Authorization [known to do nothing on 1st run]"
     include: "cj-init_config.yml"
 
-  - name: "08 :: Add ssh public key of {{ cj_runas_user }} user to user {{ cj_local_admin_users[0].username }} properties in Jenkins"
+  - name: "Service start & enable"
+    include: "cj-restart-jenkins.yml"
+
+  - name: "Login to Jenkins with user {{ cj_local_admin_users[0].username }}"
+    include: "cj-cli-login.yml"
+
+  - name: "10.00 :: Add ssh public key of {{ cj_runas_user }} user to user {{ cj_local_admin_users[0].username }} properties in Jenkins"
     include: "cj-add-public-key-to-admin-user.yml"
+
+  - name: "Logout"
+    include: "cj-cli-logout.yml"
+    when: (cj_AD_auth | bool) or (cj_LDAP_auth | bool)
+
+  - name: "Service start & enable"
+    include: "cj-restart-jenkins.yml"
 
   - name: "Add credentials"
     include: "cj-add-all-credentials.yml"
@@ -81,20 +94,20 @@
     include: "cj-add-tools-jdks.yml"
 
   ### configure look & feel
-  - name: "11 :: Enable jenkins material theme - if requested config & restart"
+  - name: "11.00 :: Enable jenkins material theme - if requested config & restart"
     include: "cj-theme.yml"
     when: ((cj_theme is defined) and (cj_theme | bool))
     static: no
 
   - block:
 
-    - name: "12.1 :: Check auth status"
+    - name: "12.10 :: Check auth status"
       include: "cj-auth_check.yml"
 
-    - name: "12.2 :: Cli Login"
+    - name: "12.20 :: Cli Login"
       include: "cj-cli-login.yml"
 
-    - name: "12.3 :: Demo seed job(s) - if requested login, delete, import & trigger 1st build"
+    - name: "12.30 :: Demo seed job(s) - if requested login, delete, import & trigger 1st build"
       include: "cj-seed.yml"
 
     when: ((cj_seed_demo is defined) and (cj_seed_demo | bool))
