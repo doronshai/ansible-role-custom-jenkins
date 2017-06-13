@@ -20,7 +20,7 @@
       cj_repo_url: "{{ cj_repo_url_gratest_n_latest }}"
     when: cj_channel == 'latest'
 
-  - name: "00.0400 :: Include Debain / Redhat OS installaion method"
+  - name: "00.04 :: Include Debain / Redhat OS installaion method"
     include: "cj-install_{{ ansible_os_family }}.yml"
 
   - name: "01.00 :: Configure Jenkins via {{ cj_conf_file }}"
