@@ -176,6 +176,8 @@ cj_wizard_plugins:
   - { name: "subversion", version: "2.7.1", enabled: "true", extention: "hpi" }
   - { name: "ssh-slaves", version: "1.12", enabled: "true", extention: "hpi" }
   - { name: "email-ext", version: "2.53", enabled: "true", extention: "hpi"}
+  - { name: "active-directory", version: "2.00", enabled: "true", extention: "hpi" }
+  
 
 cj_dsl_plugins:
   - { name: "job-dsl", version: "1.54", enabled: "true", extention: "hpi"}
