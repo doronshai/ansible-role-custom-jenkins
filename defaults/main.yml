@@ -58,6 +58,8 @@ cj_local_regular_users:
   - { username: user1, password: user1 }
   - { username: user2, password: user2 }
 
+cj_local_admin_group : 'GSSiTechnologiespopcorn'
+
 #LDAP
 ldap:
   enabled: false

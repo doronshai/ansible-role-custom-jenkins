@@ -20,13 +20,4 @@
   notify: "service jenkins restart"
   with_items:
     - basic-security.groovy
-
-- name: "Generate groovy script for Active Directory authorization"
-  template:
-    src: "{{ item }}.j2"
-    dest: "{{ cj_init_dir }}/{{ item }}"
-    owner:  "{{ cj_runas_user }}"
-    group:  "{{ cj_runas_group }}"
-  with_items:
-    - 00-AD-security.groovy
-  when: (cj_AD_auth is defined) and (cj_AD_auth | bool)
+  # when: (cj_AD_auth is defined) and (cj_AD_auth | bool)
