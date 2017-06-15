@@ -48,7 +48,7 @@
 
 - block:
 
-  - name: "xxxxxx 04.00 :: Validate {{ cj_runas_user d('jenkins')}} has a valid ssh key xxxxx"
+  - name: "04.00 :: Validate {{ cj_runas_user d('jenkins')}} has a valid ssh key"
     include: "cj-ssh_key.yml"
   
   # Here we will set the security to false so the installation of the plugins will be done without the need to login
@@ -114,5 +114,5 @@
 
   #   when: ((cj_seed_demo is defined) and (cj_seed_demo | bool))
 
-  # become: true
-  # become_user: "{{ cj_runas_user }}"
+  become: true
+  become_user: "{{ cj_runas_user }}"
