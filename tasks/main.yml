@@ -58,16 +58,16 @@
   
   - name: "07.00 :: Configure Jenkins Authentication & Authorization [known to do nothing on 1st run]"
     include: "cj-init_config.yml"    
-    
-  - fail:
-      msg: "================================================="
 
   # - name: "05.00 :: Disable security"
   #   include: "cj-disable-security.yml"
 
   - name: "===== :: Service start & enable"
     include: "cj-restart-jenkins.yml"
-
+    
+  - fail:
+      msg: "================================================="
+      
   - name: "06.00 :: install recommanded plugins"
     include: "cj-plugins-online-install.yml"
     
