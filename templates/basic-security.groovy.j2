@@ -58,7 +58,6 @@ if (!instance.isUseSecurity()) {
         strategy.add(hudson.model.View.READ, 'anonymous')
         strategy.add(hudson.model.Item.READ, 'anonymous')
         strategy.add(Jenkins.READ, 'anonymous')
-        strategy.add(hudson.PluginManager.UPLOAD_PLUGINS,'anonymous')
     {% endif %}
 
     instance.setAuthorizationStrategy(strategy)
