@@ -64,18 +64,18 @@
 
   - name: "===== :: Service start & enable"
     include: "cj-restart-jenkins.yml"
-    
-  - fail:
-      msg: "================================================="
-      
-  - name: "06.00 :: install recommanded plugins"
-    include: "cj-plugins-online-install.yml"
-    
+
   - name: "===== :: Service start & enable"
     include: "cj-restart-jenkins.yml"
 
   - name: "08.00 :: Login to Jenkins with user {{ cj_local_admin_users[0].username }}"
     include: "cj-cli-login.yml"
+
+  - name: "06.00 :: install recommanded plugins"
+    include: "cj-plugins-online-install.yml"
+
+  - fail:
+      msg: "================================================="
 
   - name: "09.00 :: Add ssh public key of {{ cj_runas_user }} user to user {{ cj_local_admin_users[0].username }} properties in Jenkins"
     include: "cj-add-public-key-to-admin-user.yml"
