@@ -70,9 +70,11 @@
     
   - name: "06.00 :: install recommanded plugins"
     include: "cj-plugins-online-install.yml"
+    tags:
+      - plugins
 
-  - fail:
-      msg: "================================================="
+  #- fail:
+  #    msg: "================================================="
 
 
   - name: "09.00 :: Add ssh public key of {{ cj_runas_user }} user to user {{ cj_local_admin_users[0].username }} properties in Jenkins"
