@@ -21,3 +21,5 @@
   with_items:
     - basic-security.groovy
   # when: (cj_AD_auth is defined) and (cj_AD_auth | bool)
+  tags:
+  - basic-security
