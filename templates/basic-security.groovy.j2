@@ -15,7 +15,7 @@ def env = System.getenv()
 // Roles
 def globalRoleRead = "GeneralView"
 def globalRoleAdmin = "admin"
-def ldapGroupNameAdmin = env['LDAP_GROUP_NAME_ADMIN'] ?: "{{ cj_local_admin_group.groupname }}"
+def ldapGroupNameAdmin = '{{ cj_local_admin_group.groupname }}'
 
 def instance = Jenkins.getInstance()
 def currentAuthenticationStrategy = Hudson.instance.getAuthorizationStrategy()
@@ -33,7 +33,6 @@ if (!instance.isUseSecurity()) {
         instance.save()
     {% endif %}
     {% if ldap.enabled == true %}  
-        println ("--DEBUG---------------------------------------- 111111 -------------------------------------------")
         String server = "{{ ldap.host }}"
         String rootDN = "{{ ldap.rootDN }}"
         String userSearchBase = ''
@@ -50,11 +49,8 @@ if (!instance.isUseSecurity()) {
         String mailAddressAttributeName = "mail"
         IdStrategy userIdStrategy = ""
         IdStrategy groupIdStrategy = ""
-        println ("--DEBUG---------------------------------------- 222222 -------------------------------------------")
         SecurityRealm ldap_realm = new LDAPSecurityRealm(server, rootDN, userSearchBase, userSearch, groupSearchBase, groupSearchfilter, groupMembershipStrategy, managerDN, managerPassword, inhibitInferRootDN, disableMailAddressResolver, cache, environmentProperties, displayNameAttributeName,mailAddressAttributeName, userIdStrategy, groupIdStrategy)
-        println ("--DEBUG---------------------------------------- 333333 -------------------------------------------")
         ldap_realm.isDisableRolePrefixing("{{ ldap.isDisableRolePrefixing }}")
-        println ("--DEBUG---------------------------------------- 444444 -------------------------------------------")
 
         Jenkins.instance.setSecurityRealm(ldap_realm)
         Jenkins.instance.authorizationStrategy = new FullControlOnceLoggedInAuthorizationStrategy() ;
