@@ -73,10 +73,10 @@ if (!instance.isUseSecurity()) {
         RoleBasedAuthorizationStrategy roleBasedAuthenticationStrategy = new RoleBasedAuthorizationStrategy()
         instance.setAuthorizationStrategy(roleBasedAuthenticationStrategy)
 
-        Constructor[] constrs = Role.class.getConstructors();
-        for (Constructor<?> c : constrs) {
-        c.setAccessible(true);
-        }
+        // Constructor[] constrs = Role.class.getConstructors();
+        // for (Constructor<?> c : constrs) {
+        // c.setAccessible(true);
+        // }
 
         // Make the method assignRole accessible
         Method assignRoleMethod = RoleBasedAuthorizationStrategy.class.getDeclaredMethod("assignRole", String.class, Role.class, String.class);
