@@ -10,7 +10,12 @@ import com.michelin.cio.hudson.plugins.rolestrategy.*
 import java.util.*
 import java.lang.reflect.*
 
+def env = System.getenv()
 
+// Roles
+def globalRoleRead = "GeneralView"
+def globalRoleAdmin = "admin"
+def ldapGroupNameAdmin = '{{ cj_local_admin_group.groupname }}'
 
 def instance = Jenkins.getInstance()
 
