@@ -10,15 +10,15 @@ import com.michelin.cio.hudson.plugins.rolestrategy.*
 import java.util.*
 import java.lang.reflect.*
 
-def env = System.getenv()
+// def env = System.getenv()
 
-// Roles
-def globalRoleRead = "GeneralView"
-def globalRoleAdmin = "admin"
-def ldapGroupNameAdmin = '{{ cj_local_admin_group.groupname }}'
+// // Roles
+// def globalRoleRead = "GeneralView"
+// def globalRoleAdmin = "admin"
+// def ldapGroupNameAdmin = '{{ cj_local_admin_group.groupname }}'
 
 def instance = Jenkins.getInstance()
-def currentAuthenticationStrategy = Hudson.instance.getAuthorizationStrategy()
+// def currentAuthenticationStrategy = Hudson.instance.getAuthorizationStrategy()
 
 println "Checking if security has already been set"
 if (!instance.isUseSecurity()) {
