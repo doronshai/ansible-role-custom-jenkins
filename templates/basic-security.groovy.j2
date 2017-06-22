@@ -69,7 +69,7 @@ if (!instance.isUseSecurity()) {
 
         // Set new authentication strategy
         RoleBasedAuthorizationStrategy roleBasedAuthenticationStrategy = new RoleBasedAuthorizationStrategy()
-        instance.setAuthorizationStrategy(roleBasedAuthenticationStrategy)
+        Jenkins.instance.setAuthorizationStrategy(roleBasedAuthenticationStrategy)
 
         Constructor[] constrs = Role.class.getConstructors();
         for (Constructor<?> c : constrs) {
@@ -155,7 +155,7 @@ if (!instance.isUseSecurity()) {
 
         // Save the state
         println "Saving changes."
-        instance.save()
+        Jenkins.instance.save()
     }
     // def strategy = new hudson.security.ProjectMatrixAuthorizationStrategy()
     // {% for account in cj_local_admin_users %}
