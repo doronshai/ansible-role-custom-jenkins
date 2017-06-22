@@ -1,0 +1,8 @@
+---
+
+- name: "Add settings.xml file for maven"
+  template:
+    src: settings.xml.j2
+    dest: "{{ cj_home }}/settings.xml"
+    owner:  "{{ cj_runas_user }}"
+    group:  "{{ cj_runas_group }}"

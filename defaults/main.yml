@@ -31,6 +31,15 @@ cj_proxy_conf_file: "{{ cj_home }}/proxy.xml"
 # in case we want to test jenkins without a proxy when cj_set_proxy is set to true
 cj_remove_proxy: false
 
+
+cj_nexus_releases_repo: my-nexus-releases
+cj_nexus_releases_repo_user: admin
+cj_nexus_releases_repo_password: changeme
+
+cj_nexus_snapshots_repo: my-nexus-snapshots
+cj_nexus_snapshots_repo_user: admin
+cj_nexus_snapshots_repo_password: changeme
+
 # jenkins 2 requires skip wizrd param
 # chenge this to true if you really want it ;)
 cj_run_startup_wizard: "false" # String becuase the jvm arg becomes False ...

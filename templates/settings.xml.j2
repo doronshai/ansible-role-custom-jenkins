@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" 
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+    <pluginGroups>
+    </pluginGroups>
+    <proxies>
+        <proxy>
+        <id>optional</id>
+        <active>"{{ cj_set_proxy }}"</active>
+        <protocol>http</protocol>
+        <!--username>proxyuser</username-->
+        <!--password>proxypass</password-->
+        <host>"{{ cj_proxy_host }}"</host>
+        <port>"{{ cj_proxy_port }}"</port>
+        <nonProxyHosts>"{{ inventory_hostname }}"</nonProxyHosts>
+        </proxy>
+    </proxies>
+    <servers>
+        <server>
+            <id>"{{ cj_nexus_snapshots_repo }}"</id>
+            <username>"{{ cj_nexus_snapshots_repo_user }}"</username>
+            <password>"{{ cj_nexus_snapshots_repo_password }}"</password>
+        </server>
+        <server>
+            <id>"{{ cj_nexus_releases_repo }}"</id>
+            <username>"{{ cj_nexus_releases_repo_user }}"</username>
+            <password>"{{ cj_nexus_releases_repo_password }}"</password>
+        </server>
+    </servers>
+    <mirrors>
+    </mirrors>
+    <profiles>
+    </profiles>
+</settings>
