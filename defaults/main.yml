@@ -223,8 +223,8 @@ cj_nodes:
   - { name: "solaris01", host: "solaris1.domain.com", launcher_type: "ssh", ssh_port: "22", credential_id: "8bf43f0b-5cef-46b7-8d64-d1bd0a77e11a9", home: "/home/jenkins", labels: "solaris", executors: "3", description: "solaris slave" }
   - { name: "windows01", host: "win01.domain.com", launcher_type: "jnlp", ssh_port: "", credential_id: "", home: "c:\\\\jenkins", labels: "windows", executors: "5", description: "windows slave" }
 
-cj_oracle_account_username: "ivan.prokhorov@gmail.com"
-cj_oracle_account_password: "Abrasha200"
+cj_oracle_account_username: "popcorn@amdocs.com"
+cj_oracle_account_password: "Amdocs123!"
 
 cj_tools_jdks:
   - { name: "jdk-8u112", version: "jdk-8u112"}
