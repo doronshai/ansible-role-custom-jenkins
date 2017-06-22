@@ -15,7 +15,7 @@ strategy.add(Jenkins.ADMINISTER, "{{ account.username }}")
 {% for group in cj_local_admin_group %}
 strategy.add(Jenkins.ADMINISTER, "{{ group.groupname }}")
 {% endfor %}        
-{% if cj_allow_anon_read is true %}
+{% if cj_allow_anon_read == true %}
     strategy.add(hudson.model.View.READ, 'anonymous')
     strategy.add(hudson.model.Item.READ, 'anonymous')
     strategy.add(Jenkins.READ, 'anonymous')
