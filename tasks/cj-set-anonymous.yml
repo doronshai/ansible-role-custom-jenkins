@@ -1,0 +1,10 @@
+---
+
+- name: "Generate groovy script for enableing admin login and anonymous usage (for plugins deployments)"
+  template:
+    src: set-anonymous-access.groovy.j2
+    dest: "{{ cj_init_dir }}/{{ item }}"
+    owner:  "{{ cj_runas_user }}"
+    group:  "{{ cj_runas_group }}"
+  notify: "service jenkins restart"
+  when: cj_allow_anon_read is true

@@ -1,0 +1,26 @@
+#!groovy
+
+import hudson.*
+import hudson.model.*
+import hudson.security.*
+import jenkins.*
+import jenkins.model.*
+
+def instance = Jenkins.getInstance()
+
+def strategy = new hudson.security.ProjectMatrixAuthorizationStrategy()
+{% for account in cj_local_admin_users %}
+strategy.add(Jenkins.ADMINISTER, "{{ account.username }}")
+{% endfor %}
+{% for group in cj_local_admin_group %}
+strategy.add(Jenkins.ADMINISTER, "{{ group.groupname }}")
+{% endfor %}        
+{% if cj_allow_anon_read is true %}
+    strategy.add(hudson.model.View.READ, 'anonymous')
+    strategy.add(hudson.model.Item.READ, 'anonymous')
+    strategy.add(Jenkins.READ, 'anonymous')
+    strategy.add(hudson.model.Hudson.UploadPlugins, 'anonymous')
+{% endif %}
+
+instance.setAuthorizationStrategy(strategy)
+instance.save()    
