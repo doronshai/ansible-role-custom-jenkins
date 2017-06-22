@@ -7,4 +7,4 @@
     owner:  "{{ cj_runas_user }}"
     group:  "{{ cj_runas_group }}"
   notify: "service jenkins restart"
-  when: cj_allow_anon_read is true
+  when: cj_allow_anon_read == true
